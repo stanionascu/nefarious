@@ -141,14 +141,19 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'verbose',
         },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.environ.get('NEFARIOUS_LOG_PATH', '/tmp/nefarious-frontend.log'),
+        },
     },
     'root': {
-        'handlers': ['console'],
+        'handlers': ['console', 'file'],
         'level': 'INFO',
     },
     'loggers': {
         "": {
-            "handlers": ["console"],
+            "handlers": ["console", "file"],
             "level": "DEBUG"
         },
     }

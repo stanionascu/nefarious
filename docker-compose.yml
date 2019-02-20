@@ -14,8 +14,9 @@ services:
       # https://github.com/kennethreitz/dj-database-url
       DATABASE_URL: "sqlite:////nefarious-db/db.sqlite3"
       REDIS_HOST: "redis"
+      NEFARIOUS_LOG_PATH: "/nefarious-logs/frontend.log"
     volumes:
-    # persistent named volume for sqlite database
+    # persistent volume for sqlite database
     - nefarious-db:/nefarious-db
     logging:
       options:
@@ -31,13 +32,13 @@ services:
       - com.centurylinklabs.watchtower.enable=true
     image: lardbit/nefarious
     restart: always
-    entrypoint: /env/bin/celery -A nefarious worker --beat --loglevel=INFO
+    entrypoint: /env/bin/celery -A nefarious worker --beat --loglevel=INFO --logfile /nefarious-logs/backend.log
     environment:
       # https://github.com/kennethreitz/dj-database-url
       DATABASE_URL: "sqlite:////nefarious-db/db.sqlite3"
       REDIS_HOST: "redis"
     volumes:
-    # persistent named volume for sqlite database
+    # persistent volume for sqlite database
     - nefarious-db:/nefarious-db
     logging:
       options:
