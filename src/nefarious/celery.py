@@ -11,6 +11,8 @@ app = Celery('nefarious', broker='redis://{}:{}/0'.format(
     settings.REDIS_PORT,
 ))
 
+app.conf.worker_hijack_root_logger = False
+
 # Using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.
 # - namespace='CELERY' means all celery-related configuration keys
